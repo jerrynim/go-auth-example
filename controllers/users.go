@@ -4,6 +4,7 @@ package controllers
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jerrynim/leave/models"
@@ -38,9 +39,10 @@ func CreateUser(c *gin.Context) {
 	  c.Abort()
 	  return
 	}
-	// Create ㅕ
+	now := time.Now() 
+	// Create 
 	user := models.User{Email:body.Email,Password:string(hash),
-		 FirstName:body.Firstname,LastName:body.Lastname}
+		 FirstName:body.Firstname,LastName:body.Lastname,CreatedAt: now,UpdatedAt:now}
 	models.DB.Create(&user)
   
 	c.JSON(http.StatusOK, gin.H{"data": user})
